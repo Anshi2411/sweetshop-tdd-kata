@@ -11,7 +11,5 @@ public class SweetShop {
     public List<Sweet> viewSweets() {
         return new ArrayList<>(inventory.values());
     }
-    public void deleteSweet(int id) {
-        inventory.remove(id);
-    }
+
 }

@@ -13,14 +13,7 @@ public class SweetShopTest {
         shop.addSweet(barfi);
         assertEquals(2, shop.viewSweets().size());
     }
-    @Test
-    void testDeleteSweet() {
-        SweetShop shop = new SweetShop();
-        Sweet sweet = new Sweet(1003, "Gajar Halwa", "Veg-Based", 30, 15);
-        shop.addSweet(sweet);
-        shop.deleteSweet(1003);
-        assertEquals(0, shop.viewSweets().size());
-    }
+
 
 
 
