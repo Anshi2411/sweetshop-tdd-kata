@@ -6,11 +6,13 @@ public class SweetShopTest {
     @Test
     void testAddSweet() {
         SweetShop shop = new SweetShop();
+        Sweet gajarHalwa = new Sweet(1000, "Gajar Halwa", "Veg-Based", 30, 15);
         Sweet kajuKatli = new Sweet(1001, "Kaju Katli", "Nut-Based", 50, 20);
         Sweet barfi = new Sweet(1002, "Barfi", "Milk-Based", 100, 20);
         shop.addSweet(kajuKatli);
         shop.addSweet(barfi);
-        assertEquals(2, shop.viewSweets().size());
+        shop.addSweet(gajarHalwa);
+        assertEquals(3, shop.viewSweets().size());
     }
 
     @Test
@@ -22,16 +24,16 @@ public class SweetShopTest {
         assertEquals(0, shop.viewSweets().size());
     }
 
-//    @Test
-//    void testPurchaseSweetReducesStock() {
-//        SweetShop shop = new SweetShop();
-//        Sweet gulabJamun = new Sweet(1004, "Gulab Jamun", "Milk-Based", 10, 50);
-//        shop.addSweet(gulabJamun);
-//
-//        shop.purchaseSweet(1004, 10);
-//
-//        assertEquals(40, shop.viewSweets().get(0).getQuantity());
-//    }
+    @Test
+    void testPurchaseSweetReducesStock() {
+        SweetShop shop = new SweetShop();
+        Sweet gulabJamun = new Sweet(1004, "Gulab Jamun", "Milk-Based", 10, 50);
+        shop.addSweet(gulabJamun);
+
+        shop.purchaseSweet(1004, 10);
+
+        assertEquals(40, shop.viewSweets().get(0).getQuantity());
+    }
 
     @Test
     void testPurchaseSweetThrowsIfNotEnoughStock() {
@@ -44,16 +46,16 @@ public class SweetShopTest {
         });
     }
 
-//    @Test
-//    void testRestockSweetIncreasesQuantity() {
-//        SweetShop shop = new SweetShop();
-//        Sweet coconutBarfi = new Sweet(1006, "Coconut Barfi", "Nut-Based", 50, 10);
-//        shop.addSweet(coconutBarfi);
-//
-//        shop.restockSweet(1006, 40);
-//
-//        assertEquals(50, shop.viewSweets().get(0).getQuantity());
-//    }
+    @Test
+    void testRestockSweetIncreasesQuantity() {
+        SweetShop shop = new SweetShop();
+        Sweet coconutBarfi = new Sweet(1006, "Coconut Barfi", "Nut-Based", 50, 10);
+        shop.addSweet(coconutBarfi);
+
+        shop.restockSweet(1006, 40);
+
+        assertEquals(50, shop.viewSweets().get(0).getQuantity());
+    }
 
     @Test
     void testRestockSweetThrowsIfSweetNotFound() {
