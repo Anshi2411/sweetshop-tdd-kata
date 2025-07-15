@@ -13,6 +13,7 @@ public class Sweet {
         this.quantity = quantity;
     }
 
+
     public int getId() { return id; }
     public String getName() { return name; }
     public String getCategory() { return category; }

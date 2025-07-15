@@ -7,6 +7,7 @@ public class SweetShop {
         inventory.put(sweet.getId(), sweet);
     }
 
+
     public List<Sweet> viewSweets() {
         return new ArrayList<>(inventory.values());
     }

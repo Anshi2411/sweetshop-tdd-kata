@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SweetShopTest {
 
+
     @Test
     void testAddSweet() {
         SweetShop shop = new SweetShop();
