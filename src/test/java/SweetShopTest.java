@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SweetShopTest {
 
-
     @Test
     void testAddSweet() {
         SweetShop shop = new SweetShop();
@@ -13,6 +12,7 @@ public class SweetShopTest {
         shop.addSweet(barfi);
         assertEquals(2, shop.viewSweets().size());
     }
+
     @Test
     void testDeleteSweet() {
         SweetShop shop = new SweetShop();
@@ -22,7 +22,25 @@ public class SweetShopTest {
         assertEquals(0, shop.viewSweets().size());
     }
 
+    @Test
+    void testPurchaseSweetReducesStock() {
+        SweetShop shop = new SweetShop();
+        Sweet gulabJamun = new Sweet(1004, "Gulab Jamun", "Milk-Based", 10, 50);
+        shop.addSweet(gulabJamun);
 
+        shop.purchaseSweet(1004, 10);
 
+        assertEquals(40, shop.viewSweets().get(0).getQuantity());
+    }
 
+    @Test
+    void testPurchaseSweetThrowsIfNotEnoughStock() {
+        SweetShop shop = new SweetShop();
+        Sweet gajarHalwa = new Sweet(1005, "Gajar Halwa", "Veg-Based", 30, 5);
+        shop.addSweet(gajarHalwa);
+
+        assertThrows(OutOfStockException.class, () -> {
+            shop.purchaseSweet(1005, 10);
+        });
+    }
 }
