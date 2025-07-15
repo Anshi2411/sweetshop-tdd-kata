@@ -25,4 +25,12 @@ public class SweetShop {
         sweet.setQuantity(sweet.getQuantity() - quantity);
     }
 
+    public void restockSweet(int id, int quantity) {
+        Sweet sweet = inventory.get(id);
+        if (sweet == null) {
+            throw new IllegalArgumentException("Sweet not found");
+        }
+        sweet.setQuantity(sweet.getQuantity() + quantity);
+    }
+
 }

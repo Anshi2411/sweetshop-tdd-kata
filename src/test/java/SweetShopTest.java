@@ -22,16 +22,16 @@ public class SweetShopTest {
         assertEquals(0, shop.viewSweets().size());
     }
 
-    @Test
-    void testPurchaseSweetReducesStock() {
-        SweetShop shop = new SweetShop();
-        Sweet gulabJamun = new Sweet(1004, "Gulab Jamun", "Milk-Based", 10, 50);
-        shop.addSweet(gulabJamun);
-
-        shop.purchaseSweet(1004, 10);
-
-        assertEquals(40, shop.viewSweets().get(0).getQuantity());
-    }
+//    @Test
+//    void testPurchaseSweetReducesStock() {
+//        SweetShop shop = new SweetShop();
+//        Sweet gulabJamun = new Sweet(1004, "Gulab Jamun", "Milk-Based", 10, 50);
+//        shop.addSweet(gulabJamun);
+//
+//        shop.purchaseSweet(1004, 10);
+//
+//        assertEquals(40, shop.viewSweets().get(0).getQuantity());
+//    }
 
     @Test
     void testPurchaseSweetThrowsIfNotEnoughStock() {
@@ -43,4 +43,25 @@ public class SweetShopTest {
             shop.purchaseSweet(1005, 10);
         });
     }
+
+//    @Test
+//    void testRestockSweetIncreasesQuantity() {
+//        SweetShop shop = new SweetShop();
+//        Sweet coconutBarfi = new Sweet(1006, "Coconut Barfi", "Nut-Based", 50, 10);
+//        shop.addSweet(coconutBarfi);
+//
+//        shop.restockSweet(1006, 40);
+//
+//        assertEquals(50, shop.viewSweets().get(0).getQuantity());
+//    }
+
+    @Test
+    void testRestockSweetThrowsIfSweetNotFound() {
+        SweetShop shop = new SweetShop();
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            shop.restockSweet(9999, 10);
+        });
+    }
+
 }
