@@ -4,6 +4,7 @@ import java.util.List;
 
 public class SweetShopTest {
 
+    //  Test adding multiple sweets to the inventory
     @Test
     void testAddSweet() {
         SweetShop shop = new SweetShop();
@@ -16,6 +17,7 @@ public class SweetShopTest {
         assertEquals(3, shop.viewSweets().size());
     }
 
+    //  Test deleting a sweet by ID
     @Test
     void testDeleteSweet() {
         SweetShop shop = new SweetShop();
@@ -25,6 +27,7 @@ public class SweetShopTest {
         assertEquals(0, shop.viewSweets().size());
     }
 
+    //  Test purchasing sweet reduces stock correctly when enough stock is available
     @Test
     void testPurchaseSweetReducesStock() {
         SweetShop shop = new SweetShop();
@@ -36,6 +39,7 @@ public class SweetShopTest {
         assertEquals(40, shop.viewSweets().get(0).getQuantity());
     }
 
+    //  Test purchasing more than available stock throws OutOfStockException
     @Test
     void testPurchaseSweetThrowsIfNotEnoughStock() {
         SweetShop shop = new SweetShop();
@@ -47,6 +51,7 @@ public class SweetShopTest {
         });
     }
 
+    //  Test restocking sweet increases the quantity correctly
     @Test
     void testRestockSweetIncreasesQuantity() {
         SweetShop shop = new SweetShop();
@@ -58,6 +63,7 @@ public class SweetShopTest {
         assertEquals(50, shop.viewSweets().get(0).getQuantity());
     }
 
+    //  Test restocking with invalid ID throws IllegalArgumentException
     @Test
     void testRestockSweetThrowsIfSweetNotFound() {
         SweetShop shop = new SweetShop();
@@ -67,8 +73,7 @@ public class SweetShopTest {
         });
     }
 
-    // ✅ Combined search tests using searchSweets()
-
+    //  Test combined search by name only
     @Test
     void testSearchSweetsByNameOnly() {
         SweetShop shop = new SweetShop();
@@ -81,6 +86,7 @@ public class SweetShopTest {
         assertEquals(2, results.size());
     }
 
+    //  Test combined search by category only
     @Test
     void testSearchSweetsByCategoryOnly() {
         SweetShop shop = new SweetShop();
@@ -93,6 +99,7 @@ public class SweetShopTest {
         assertEquals(2, results.size());
     }
 
+    //  Test combined search by price range only
     @Test
     void testSearchSweetsByPriceRangeOnly() {
         SweetShop shop = new SweetShop();
@@ -106,6 +113,7 @@ public class SweetShopTest {
         assertEquals("Barfi", results.get(0).getName());
     }
 
+    //  Test combined search by name, category and price range
     @Test
     void testSearchSweetsByAllCriteria() {
         SweetShop shop = new SweetShop();
@@ -119,6 +127,7 @@ public class SweetShopTest {
         assertEquals("Kaju Katli", results.get(0).getName());
     }
 
+    // Test combined search returns empty list when no match found
     @Test
     void testSearchSweetsReturnsEmptyIfNoMatch() {
         SweetShop shop = new SweetShop();
