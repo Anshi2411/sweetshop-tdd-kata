@@ -7,13 +7,14 @@ public class SweetShop {
         inventory.put(sweet.getId(), sweet);
     }
 
+    public void deleteSweet(int id) {
+        inventory.remove(id);
+    }
 
     public List<Sweet> viewSweets() {
         return new ArrayList<>(inventory.values());
     }
-    public void deleteSweet(int id) {
-        inventory.remove(id);
-    }
+
     public void purchaseSweet(int id, int quantity) {
         Sweet sweet = inventory.get(id);
         if (sweet == null) {
@@ -33,15 +34,33 @@ public class SweetShop {
         sweet.setQuantity(sweet.getQuantity() + quantity);
     }
 
-    public List<Sweet> searchByName(String name) {
+    public List<Sweet> searchSweets(String name, String category, Double minPrice, Double maxPrice) {
         List<Sweet> results = new ArrayList<>();
+
         for (Sweet sweet : inventory.values()) {
-            if (sweet.getName().toLowerCase().contains(name.toLowerCase())) {
+            boolean matches = true;
+
+            if (name != null && !sweet.getName().toLowerCase().contains(name.toLowerCase())) {
+                matches = false;
+            }
+
+            if (category != null && !sweet.getCategory().equalsIgnoreCase(category)) {
+                matches = false;
+            }
+
+            if (minPrice != null && sweet.getPrice() < minPrice) {
+                matches = false;
+            }
+
+            if (maxPrice != null && sweet.getPrice() > maxPrice) {
+                matches = false;
+            }
+
+            if (matches) {
                 results.add(sweet);
             }
         }
+
         return results;
     }
-
-
 }

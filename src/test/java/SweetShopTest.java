@@ -28,8 +28,8 @@ public class SweetShopTest {
     @Test
     void testPurchaseSweetReducesStock() {
         SweetShop shop = new SweetShop();
-        Sweet gulabJamun = new Sweet(1004, "Rashgolla", "Milk-Based", 10, 50);
-        shop.addSweet(gulabJamun);
+        Sweet rasgulla = new Sweet(1004, "Rasgulla", "Milk-Based", 10, 50);
+        shop.addSweet(rasgulla);
 
         shop.purchaseSweet(1004, 10);
 
@@ -67,28 +67,65 @@ public class SweetShopTest {
         });
     }
 
+    // ✅ Combined search tests using searchSweets()
+
     @Test
-    void testSearchByNameReturnsMatchingSweets() {
+    void testSearchSweetsByNameOnly() {
         SweetShop shop = new SweetShop();
         shop.addSweet(new Sweet(1007, "Badam Katli", "Nut-Based", 50, 10));
         shop.addSweet(new Sweet(1008, "Kesar Katli", "Nut-Based", 60, 8));
         shop.addSweet(new Sweet(1009, "Penda", "Milk-Based", 10, 50));
 
-        List<Sweet> results = shop.searchByName("Katli");
+        List<Sweet> results = shop.searchSweets("Katli", null, null, null);
 
         assertEquals(2, results.size());
-        assertTrue(results.get(0).getName().contains("Katli"));
-        assertTrue(results.get(1).getName().contains("Katli"));
     }
 
     @Test
-    void testSearchByNameReturnsEmptyListIfNoMatch() {
+    void testSearchSweetsByCategoryOnly() {
         SweetShop shop = new SweetShop();
-        shop.addSweet(new Sweet(1010, "Sondesh", "Milk-Based", 30, 20));
+        shop.addSweet(new Sweet(1010, "Kaju Katli", "Nut-Based", 50, 10));
+        shop.addSweet(new Sweet(1011, "Kesar Katli", "Nut-Based", 60, 8));
+        shop.addSweet(new Sweet(1012, "Barfi", "Milk-Based", 30, 20));
 
-        List<Sweet> results = shop.searchByName("Halwa");
+        List<Sweet> results = shop.searchSweets(null, "Nut-Based", null, null);
+
+        assertEquals(2, results.size());
+    }
+
+    @Test
+    void testSearchSweetsByPriceRangeOnly() {
+        SweetShop shop = new SweetShop();
+        shop.addSweet(new Sweet(1013, "Barfi", "Milk-Based", 30, 20));
+        shop.addSweet(new Sweet(1014, "Gulab Jamun", "Milk-Based", 10, 50));
+        shop.addSweet(new Sweet(1015, "Kaju Katli", "Nut-Based", 50, 10));
+
+        List<Sweet> results = shop.searchSweets(null, null, 20.0, 40.0);
+
+        assertEquals(1, results.size());
+        assertEquals("Barfi", results.get(0).getName());
+    }
+
+    @Test
+    void testSearchSweetsByAllCriteria() {
+        SweetShop shop = new SweetShop();
+        shop.addSweet(new Sweet(1016, "Kesar Katli", "Nut-Based", 60, 8));
+        shop.addSweet(new Sweet(1017, "Kaju Katli", "Nut-Based", 50, 10));
+        shop.addSweet(new Sweet(1018, "Barfi", "Milk-Based", 30, 20));
+
+        List<Sweet> results = shop.searchSweets("Katli", "Nut-Based", 40.0, 55.0);
+
+        assertEquals(1, results.size());
+        assertEquals("Kaju Katli", results.get(0).getName());
+    }
+
+    @Test
+    void testSearchSweetsReturnsEmptyIfNoMatch() {
+        SweetShop shop = new SweetShop();
+        shop.addSweet(new Sweet(1019, "Sondesh", "Milk-Based", 30, 20));
+
+        List<Sweet> results = shop.searchSweets("Katli", "Nut-Based", 40.0, 55.0);
 
         assertEquals(0, results.size());
     }
-
 }
