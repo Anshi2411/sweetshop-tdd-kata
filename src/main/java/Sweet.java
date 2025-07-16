@@ -1,3 +1,4 @@
+/* Sweet class: holds ID, name, category, price, quantity */
 public class Sweet {
     private int id;
     private String name;
