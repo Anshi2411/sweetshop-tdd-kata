@@ -1,7 +1,6 @@
 import java.util.*;
 
-
- // SweetShop class manages sweets inventory.
+// SweetShop class manages sweets inventory.
 
 public class SweetShop {
 
@@ -13,12 +12,12 @@ public class SweetShop {
         inventory.put(sweet.getId(), sweet);
     }
 
-    /* Deletes a sweet from the inventory by ID */
+    // Deletes a sweet from the inventory by ID
     public void deleteSweet(int id) {
         inventory.remove(id);
     }
 
-    /* Returns a list of all sweets in the inventory */
+    // Returns a list of all sweets in the inventory
     public List<Sweet> viewSweets() {
         return new ArrayList<>(inventory.values());
     }
@@ -59,4 +58,30 @@ public class SweetShop {
     public List<Sweet> searchSweets(String name, String category, Double minPrice, Double maxPrice) {
         List<Sweet> results = new ArrayList<>();
 
-        for (Sweet sw
+        for (Sweet sweet : inventory.values()) {
+            boolean matches = true;
+
+            if (name != null && !sweet.getName().toLowerCase().contains(name.toLowerCase())) {
+                matches = false;
+            }
+
+            if (category != null && !sweet.getCategory().equalsIgnoreCase(category)) {
+                matches = false;
+            }
+
+            if (minPrice != null && sweet.getPrice() < minPrice) {
+                matches = false;
+            }
+
+            if (maxPrice != null && sweet.getPrice() > maxPrice) {
+                matches = false;
+            }
+
+            if (matches) {
+                results.add(sweet);
+            }
+        }
+
+        return results;
+    }
+}
