@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 public class SweetShopTest {
 
@@ -18,7 +19,7 @@ public class SweetShopTest {
     @Test
     void testDeleteSweet() {
         SweetShop shop = new SweetShop();
-        Sweet sweet = new Sweet(1003, "Gajar Halwa", "Veg-Based", 30, 15);
+        Sweet sweet = new Sweet(1003, "Dudhi Halwa", "Veg-Based", 30, 15);
         shop.addSweet(sweet);
         shop.deleteSweet(1003);
         assertEquals(0, shop.viewSweets().size());
@@ -27,7 +28,7 @@ public class SweetShopTest {
     @Test
     void testPurchaseSweetReducesStock() {
         SweetShop shop = new SweetShop();
-        Sweet gulabJamun = new Sweet(1004, "Gulab Jamun", "Milk-Based", 10, 50);
+        Sweet gulabJamun = new Sweet(1004, "Rashgolla", "Milk-Based", 10, 50);
         shop.addSweet(gulabJamun);
 
         shop.purchaseSweet(1004, 10);
@@ -38,8 +39,8 @@ public class SweetShopTest {
     @Test
     void testPurchaseSweetThrowsIfNotEnoughStock() {
         SweetShop shop = new SweetShop();
-        Sweet gajarHalwa = new Sweet(1005, "Gajar Halwa", "Veg-Based", 30, 5);
-        shop.addSweet(gajarHalwa);
+        Sweet dryFruitHalwa = new Sweet(1005, "Dry Fruit Halwa", "Nut-Based", 30, 5);
+        shop.addSweet(dryFruitHalwa);
 
         assertThrows(OutOfStockException.class, () -> {
             shop.purchaseSweet(1005, 10);
@@ -64,6 +65,30 @@ public class SweetShopTest {
         assertThrows(IllegalArgumentException.class, () -> {
             shop.restockSweet(9999, 10);
         });
+    }
+
+    @Test
+    void testSearchByNameReturnsMatchingSweets() {
+        SweetShop shop = new SweetShop();
+        shop.addSweet(new Sweet(1007, "Badam Katli", "Nut-Based", 50, 10));
+        shop.addSweet(new Sweet(1008, "Kesar Katli", "Nut-Based", 60, 8));
+        shop.addSweet(new Sweet(1009, "Penda", "Milk-Based", 10, 50));
+
+        List<Sweet> results = shop.searchByName("Katli");
+
+        assertEquals(2, results.size());
+        assertTrue(results.get(0).getName().contains("Katli"));
+        assertTrue(results.get(1).getName().contains("Katli"));
+    }
+
+    @Test
+    void testSearchByNameReturnsEmptyListIfNoMatch() {
+        SweetShop shop = new SweetShop();
+        shop.addSweet(new Sweet(1010, "Sondesh", "Milk-Based", 30, 20));
+
+        List<Sweet> results = shop.searchByName("Halwa");
+
+        assertEquals(0, results.size());
     }
 
 }

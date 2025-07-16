@@ -33,4 +33,15 @@ public class SweetShop {
         sweet.setQuantity(sweet.getQuantity() + quantity);
     }
 
+    public List<Sweet> searchByName(String name) {
+        List<Sweet> results = new ArrayList<>();
+        for (Sweet sweet : inventory.values()) {
+            if (sweet.getName().toLowerCase().contains(name.toLowerCase())) {
+                results.add(sweet);
+            }
+        }
+        return results;
+    }
+
+
 }
