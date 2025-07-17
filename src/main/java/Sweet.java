@@ -14,7 +14,6 @@ public class Sweet {
         this.quantity = quantity;
     }
 
-
     public int getId() { return id; }
     public String getName() { return name; }
     public String getCategory() { return category; }
@@ -22,6 +21,14 @@ public class Sweet {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-
-
+    @Override
+    public String toString() {
+        return "Sweet{" +
+                "ID=" + id +
+                ", Name='" + name + '\'' +
+                ", Category='" + category + '\'' +
+                ", Price=" + price +
+                ", Quantity=" + quantity +
+                '}';
+    }
 }
